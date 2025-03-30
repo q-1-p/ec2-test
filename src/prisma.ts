@@ -30,7 +30,8 @@ export async function getRecordById(id: string) {
 // タイトルによってRecordを取得する関数
 export async function getRecordByTitle(title: string) {
   try {
-    const record = await prisma.record.findUnique({
+    // titleはユニークキーではないため、findFirstを使用
+    const record = await prisma.record.findFirst({
       where: { title },
     });
     return record;
@@ -41,7 +42,7 @@ export async function getRecordByTitle(title: string) {
 }
 
 // Recordを作成する関数
-export async function createRecord(data: { title: string; time?: string }) {
+export async function createRecord(data: { title: string; time: number }) {
   try {
     const record = await prisma.record.create({
       data,
@@ -54,7 +55,7 @@ export async function createRecord(data: { title: string; time?: string }) {
 }
 
 // Recordを更新する関数
-export async function updateRecord(id: string, data: { title?: string; time?: string }) {
+export async function updateRecord(id: string, data: { title?: string; time?: number }) {
   try {
     const record = await prisma.record.update({
       where: { id },
