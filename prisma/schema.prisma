@@ -9,11 +9,11 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("mysql://admin:9kv8xiyi@localhost:3306/mydb")
+  provider = "sqlite"
+  url      = "file:./migrations/test.db"
 }
 
-model Record {
+model records {
   id    String  @id @default(uuid())
   title String
   time  Int
